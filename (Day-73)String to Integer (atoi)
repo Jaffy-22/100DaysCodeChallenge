@@ -1,0 +1,45 @@
+/*
+Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).
+The algorithm for myAtoi(string s) is as follows:
+  oIgnore any leading whitespace.
+  oCheck if the next character (if not already at the end of the string) is '-' or '+'. Determine if the result is negative or positive respectively.
+  oRead characters until the next non-digit character or the end of the input. Ignore the rest of the string.
+  oConvert the read digits into an integer.
+  oClamp the integer to the range [-2^31, 2^31 - 1] if it goes beyond this range.
+  oReturn the integer as the final result.
+Example 1:
+Input: "42"
+Output: 42
+
+Example 2:
+Input: " -42"
+Output: -42
+
+Example 3:
+Input: "4193 with words"
+Output: 4193
+*/
+class Solution {
+    public int myAtoi(String s) {
+        String str = s.trim();
+        if (str.isEmpty()) {
+            return 0;
+        }
+        int sign = 1;
+        int i = 0;
+        if (str.charAt(i) == '-' || str.charAt(i) == '+') {
+            sign = (str.charAt(i++) == '-') ? -1 : 1;
+        }
+        long result = 0;
+        while (i < str.length() && Character.isDigit(str.charAt(i))) {
+            result = result * 10 + (str.charAt(i++) - '0');
+            if (result * sign < Integer.MIN_VALUE) {
+                return Integer.MIN_VALUE;
+            } else if (result * sign > Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            }
+        }
+        
+        return (int) (result * sign);
+    }
+}
