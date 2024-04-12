@@ -1,0 +1,47 @@
+/*
+Given two strings s and goal, return true if you can swap two letters in s so the result is equal to goal, otherwise, return false.
+Swapping letters is defined as taking two indices i and j (0-indexed) such that i != j and swapping the characters at s[i] and s[j].
+For example, swapping at indices 0 and 2 in "abcd" results in "cbad".
+
+Example 1:
+Input: s = "ab", goal = "ba"
+Output: true
+Explanation: You can swap s[0] = 'a' and s[1] = 'b' to get "ba", which is equal to goal.
+
+Example 2:
+Input: s = "ab", goal = "ab"
+Output: false
+Explanation: The only letters you can swap are s[0] = 'a' and s[1] = 'b', which results in "ba" != goal.
+*/
+class Solution {
+    public boolean buddyStrings(String s, String goal) {
+        if (s.length() != goal.length())
+            return false;
+        int s1 = -1, s2 = -1;
+        int c = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != goal.charAt(i)) {
+                if (c == 0)
+                    s1 = i;
+                else if (c == 1)
+                    s2 = i;
+                c++;
+                if (c > 2)
+                    return false;
+            }
+        }
+        if (c == 0) {
+            int[] freq = new int[26];
+            for (char ch : s.toCharArray()) {
+                if (++freq[ch - 'a'] == 2)
+                    return true;
+            }
+            return false;
+        }
+        if (c == 2 && s.charAt(s1) == goal.charAt(s2) && s.charAt(s2) == goal.charAt(s1)) {
+            return true;
+        }
+        
+        return false;
+    }
+}
