@@ -1,0 +1,48 @@
+/*
+Given a fixed-length integer array arr, duplicate each occurrence of zero, shifting the remaining elements to the right.
+Note that elements beyond the length of the original array are not written. Do the above modifications to the input array in place and do not return anything.
+
+Example 1:
+Input: arr = [1,0,2,3,0,4,5,0]
+Output: [1,0,0,2,3,0,0,4]
+Explanation: After calling your function, the input array is modified to: [1,0,0,2,3,0,0,4]
+
+Example 2:
+Input: arr = [1,2,3]
+Output: [1,2,3]
+Explanation: After calling your function, the input array is modified to: [1,2,3]
+*/
+class Solution {
+    public void duplicateZeros(int[] arr) {
+//Using ArrayList:
+        /*int len = arr.length;
+        ArrayList<Integer> dup = new ArrayList<>();
+        
+        for (int i = 0; i < len; i++) {
+            dup.add(arr[i]);
+            if (arr[i] == 0) {
+                dup.add(0);
+            }
+        }
+        
+        for (int i = 0; i < len; i++) {
+            arr[i] = dup.get(i);
+        }
+        */
+//Using Array:
+        int len = arr.length;
+        int[] dup = new int[len * 2];
+        int index = 0;
+        
+        for (int i = 0; i < len; i++) {
+            dup[index++] = arr[i];
+            if (arr[i] == 0) {
+                dup[index++] = 0;
+            }
+        }
+        
+        for (int i = 0; i < len; i++) {
+            arr[i] = dup[i];
+        }
+    }
+}
